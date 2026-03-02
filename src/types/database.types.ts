@@ -24,6 +24,7 @@ export type Database = {
                     is_available: boolean | null
                     name: string | null
                     rating: number | null
+                    slug: string
                 }
                 Insert: {
                     created_at?: string
@@ -34,6 +35,7 @@ export type Database = {
                     is_available?: boolean | null
                     name?: string | null
                     rating?: number | null
+                    slug: string
                 }
                 Update: {
                     created_at?: string
@@ -44,6 +46,7 @@ export type Database = {
                     is_available?: boolean | null
                     name?: string | null
                     rating?: number | null
+                    slug?: string
                 }
                 Relationships: []
             }
