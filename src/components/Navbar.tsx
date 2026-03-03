@@ -6,7 +6,7 @@ export default function Navbar(){
                 <button className='simple-btn'>Main</button>
                 <button className='simple-btn'>Shop</button>
             </div>
-            <input className='input' type='search' placeholder='Search for a restaurant or dish...'/>
+            <input className='input' type='search' placeholder='Food, Restaurants...'/>
             <button className='login-btn'>Login or Register</button>
         </nav>
     <hr style={{border: '1px solid gray'}}></hr>
