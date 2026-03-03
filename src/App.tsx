@@ -15,7 +15,7 @@ function App() {
     const {data: restaurants}:Data = useSuspenseQuery({
         queryKey: ['restaurants'],
         queryFn: async () => {
-            const {data} = await supabase.from('restaurants').select()
+            const {data} = await supabase.from('restaurantss').select()
             return data
         }
     })
