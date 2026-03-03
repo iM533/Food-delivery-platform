@@ -47,6 +47,48 @@ h1 {
   justify-content: center;
 }
 
+.product {
+  display: flex;
+  flex-direction: row;
+  height: 150px;
+}
+.product .text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.product .image-wrap{
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.product .title{
+  font-weight: bold;
+}
+
+.product .description{
+  color: gray;
+}
+
+.product .price {
+  font-weight: bolder;
+}
+
+.spacer{
+  width: 100%;
+  height: 1px;
+  border: none;
+  border-top: 1px solid gray;
+}
+
+.product .image-wrap .image {
+  box-sizing: border-box;
+  width: 130px;
+  height: 100px;
+}
 
 .navbar{
   display: flex;

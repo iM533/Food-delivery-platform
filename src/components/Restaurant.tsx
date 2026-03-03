@@ -13,7 +13,7 @@ type RestaurantProps = {
 export default function Restaurant({img, deliveryPrice, deliveryTime , title, id, slug}:RestaurantProps ){
     return(
     <Link className='restaurant' to={`/${id}-${slug}`}>
-        <img className='img' src={img()} alt={title}/>
+        <img className='img' src={img()} alt={title} loading='lazy'/>
         <strong className='title'>{title}</strong>
         <div className='delivery-row'>
             <strong className='delivery-price'><Truck size={10} style={{marginRight: '5px'}}/>{(deliveryPrice/100).toFixed(2)} €</strong>

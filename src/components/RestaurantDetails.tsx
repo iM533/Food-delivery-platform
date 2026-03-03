@@ -2,6 +2,7 @@ import {useParams, Navigate} from 'react-router'
 import {useSuspenseQuery} from "@tanstack/react-query";
 import {Clock, Star, Truck} from 'lucide-react'
 import {supabase} from "../api/supabase.ts";
+import Product from "./Product.tsx";
 
 export default function RestaurantDetails(){
 
@@ -21,7 +22,20 @@ export default function RestaurantDetails(){
          }
      })
 
+    const {data: products} = useSuspenseQuery({
+        queryKey: ['product', id],
+        queryFn: async () => {
+            const {data} = await supabase.from('products').select().eq('restaurant_id', Number(id));
+            return data;
+        }
+    })
+
     const {data: restaurantImage} = supabase.storage.from('delivery-platform-images').getPublicUrl('restaurants/' + slug + '.png');
+
+        function getImageUrl(){
+            const {data: productImage} = supabase.storage.from('delivery-platform-images').getPublicUrl('nothing.png');
+            return productImage.publicUrl;
+        }
 
     if(!slug || !data)
         return <Navigate to='/'></Navigate>
@@ -37,7 +51,7 @@ export default function RestaurantDetails(){
                 <hr/>
                     <div className='element'>
                 <Truck size={15} style={{paddingRight: '5px'}}/>
-                <strong>{(data.delivery_price!/100).toFixed(2)}</strong>
+                <strong>{(data.delivery_price!/100).toFixed(2)} €</strong>
                 <p>delivery</p>
                     </div>
                 <hr/>
@@ -47,6 +61,8 @@ export default function RestaurantDetails(){
                 <p>min</p>
                     </div>
             </div>
+
+            {products?.map(e => <Product key={e.id} title={e.name} description={e.description!} price={e.price} img={getImageUrl}/>)}
         </div>
     </>)
 }
