@@ -3,13 +3,14 @@ import { createRoot } from 'react-dom/client'
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import App from './App.tsx'
 import Navbar from "./components/Navbar.tsx";
+import Loader from './components/Loader.tsx'
 
 const client = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
       <Navbar></Navbar>
-      <Suspense fallback={<div className='loader-content'><div className='loader'/></div>}>
+      <Suspense fallback={<Loader></Loader>}>
           <QueryClientProvider client={client}>
               <App />
           </QueryClientProvider>
