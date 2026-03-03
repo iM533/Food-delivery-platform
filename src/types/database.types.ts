@@ -14,37 +14,81 @@ export type Database = {
     }
     public: {
         Tables: {
+            products: {
+                Row: {
+                    created_at: string | null
+                    description: string | null
+                    id: number
+                    image_path: string | null
+                    is_available: boolean | null
+                    name: string
+                    price: number
+                    restaurant_id: number | null
+                }
+                Insert: {
+                    created_at?: string | null
+                    description?: string | null
+                    id?: number
+                    image_path?: string | null
+                    is_available?: boolean | null
+                    name: string
+                    price: number
+                    restaurant_id?: number | null
+                }
+                Update: {
+                    created_at?: string | null
+                    description?: string | null
+                    id?: number
+                    image_path?: string | null
+                    is_available?: boolean | null
+                    name?: string
+                    price?: number
+                    restaurant_id?: number | null
+                }
+                Relationships: [
+                    {
+                        foreignKeyName: "products_restaurant_id_fkey"
+                        columns: ["restaurant_id"]
+                        isOneToOne: false
+                        referencedRelation: "restaurants"
+                        referencedColumns: ["id"]
+                    },
+                ]
+            }
             restaurants: {
                 Row: {
-                    created_at: string
-                    delivery_price: number | null
-                    delivery_time: number | null
+                    created_at: string | null
+                    delivery_price: number
+                    delivery_time: number
+                    description: string | null
                     id: number
-                    image: string | null
+                    image_path: string | null
                     is_available: boolean | null
-                    name: string | null
+                    name: string
                     rating: number | null
                     slug: string
                 }
                 Insert: {
-                    created_at?: string
-                    delivery_price?: number | null
-                    delivery_time?: number | null
+                    created_at?: string | null
+                    delivery_price: number
+                    delivery_time: number
+                    description?: string | null
                     id?: number
-                    image?: string | null
+                    image_path?: string | null
                     is_available?: boolean | null
-                    name?: string | null
+                    name: string
                     rating?: number | null
                     slug: string
                 }
                 Update: {
-                    created_at?: string
-                    delivery_price?: number | null
-                    delivery_time?: number | null
+                    created_at?: string | null
+                    delivery_price?: number
+                    delivery_time?: number
+                    description?: string | null
                     id?: number
-                    image?: string | null
+                    image_path?: string | null
                     is_available?: boolean | null
-                    name?: string | null
+                    name?: string
                     rating?: number | null
                     slug?: string
                 }
