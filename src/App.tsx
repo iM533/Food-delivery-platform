@@ -1,14 +1,14 @@
 import './App.css'
-import {createClient} from "@supabase/supabase-js";
-import type {Database, Tables} from "./types/database.types.ts";
+import type {Tables} from "./types/database.types.ts";
 import Restaurant from './components/Restaurant.tsx'
 import {useSuspenseQuery} from "@tanstack/react-query";
+import {supabase} from "./api/supabase.ts";
 
 type Restaurant = Tables<'restaurants'>;
 type Data = {
     data: Restaurant[]
 }
-const supabase = createClient<Database>(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY)
+
 
 function App() {
 
@@ -42,6 +42,8 @@ function App() {
                     title={e.name!}
                     deliveryPrice={e.delivery_price!}
                     deliveryTime={e.delivery_time!}
+                    id={e.id}
+                    slug={e.slug}
                 />)}
             </div>
         </div>
