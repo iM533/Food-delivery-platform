@@ -32,8 +32,8 @@ h1 {
   width: 200px;
   height: 50px;
   font-size: 16px;
-  font-weight: bold;
   font-family: "Inter Semi Bold";
+  border: none;
 }
 
 .navbar .main-elements {
@@ -46,6 +46,7 @@ h1 {
   font-weight: bold;
   height: 50px;
   width: 150px;
+  border: none;
 }
 
 .restaurant-row {

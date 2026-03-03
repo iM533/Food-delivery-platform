@@ -1,26 +1,26 @@
 import './App.css'
-import {useEffect, useState} from "react";
 import {createClient} from "@supabase/supabase-js";
 import type {Database, Tables} from "./types/database.types.ts";
 import Restaurant from './components/Restaurant.tsx'
 import Navbar from "./components/Navbar.tsx";
+import {useSuspenseQuery} from "@tanstack/react-query";
 
 type Restaurant = Tables<'restaurants'>;
+type Data = {
+    data: Restaurant[]
+}
 const supabase = createClient<Database>(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY)
 
 function App() {
-    const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-    useEffect(() => {
-        void getRestaurants()
-    }, []);
 
-    async function getRestaurants(){
-        const {data, error} = await supabase.from('restaurants').select()
-        if(error){
-            return
+    const {data: restaurants}:Data = useSuspenseQuery({
+        queryKey: ['restaurants'],
+        queryFn: async () => {
+            const {data} = await supabase.from('restaurants').select()
+            return data
         }
-        setRestaurants(data)
-    }
+    })
+
 
     function getRestaurantImages(slug: string): string{
         if(typeof slug == null){
@@ -28,7 +28,6 @@ function App() {
         }
         const {data} = supabase.storage.from('delivery-platform-images').getPublicUrl('restaurants/' + slug + '.png');
 
-        console.log(data.publicUrl)
         return data.publicUrl;
     }
 
