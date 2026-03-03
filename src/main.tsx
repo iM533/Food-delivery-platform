@@ -7,7 +7,17 @@ import Loader from './components/Loader.tsx'
 import {ErrorBoundary} from "react-error-boundary";
 import {Route, Routes, BrowserRouter} from 'react-router'
 import RestaurantDetails from "./components/RestaurantDetails.tsx";
-const client = new QueryClient();
+const client = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: 5 * 60 * 1000,
+            gcTime: 5 * 60 * 1000,
+            retry: 1,
+            refetchOnWindowFocus: false,
+            refetchOnMount: false,
+        }
+    }
+});
 
 
 createRoot(document.getElementById('root')!).render(
