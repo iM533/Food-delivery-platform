@@ -2,7 +2,6 @@ import './App.css'
 import {createClient} from "@supabase/supabase-js";
 import type {Database, Tables} from "./types/database.types.ts";
 import Restaurant from './components/Restaurant.tsx'
-import Navbar from "./components/Navbar.tsx";
 import {useSuspenseQuery} from "@tanstack/react-query";
 
 type Restaurant = Tables<'restaurants'>;
@@ -33,7 +32,6 @@ function App() {
 
   return (
     <>
-        <Navbar></Navbar>
         <div className="content">
             <h1>Show all restaurants</h1>
 
