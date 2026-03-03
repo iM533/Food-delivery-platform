@@ -112,6 +112,7 @@ h1 {
 .restaurant .delivery-price {
   font-size: 15px;
   font-weight: normal;
+  margin-right: 20px;
 }
 
 .restaurant .delivery-time {
