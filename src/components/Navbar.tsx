@@ -5,7 +5,6 @@ import {useContext} from 'react'
 export default function Navbar(){
 
     const data = useContext(UserContext)
-
     return(<>
         <nav className='navbar'>
             <div className='main-elements'>
@@ -16,7 +15,9 @@ export default function Navbar(){
             <input className='input' type='search' placeholder='Food, Restaurants...'/>
             {data?.isLoggedIn
                 ?
-                <div className='cart'></div>
+                <div className='cart-wrapper'>
+                    <div className='cart'>View basket {data.cartItems.length}</div>
+                </div>
                 :
                 <button className='login-btn' onClick={data?.setAuth}>Login or Register</button>
             }

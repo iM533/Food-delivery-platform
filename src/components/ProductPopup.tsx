@@ -1,5 +1,7 @@
 import {Plus, Minus} from 'lucide-react';
 import type {ProductDetails} from './Product.tsx'
+import {useContext} from "react";
+import {UserContext} from "./UserContext.tsx";
 
 type props = {
     setModal: () => void,
@@ -8,7 +10,16 @@ type props = {
 
 export default function ProductPopup({setModal, popupDetails}: props){
 
+    const contextData = useContext(UserContext)
+    function handleAddProduct(product:ProductDetails){
+        if(contextData?.isLoggedIn){
+            contextData?.addItem(product);
+            console.log(contextData)
+        }else{
+            alert('You need to login first!')
+        }
 
+    }
 
     return(
         <div className='popup-backdrop' onClick={() => setModal()}>
@@ -23,11 +34,11 @@ export default function ProductPopup({setModal, popupDetails}: props){
             </div>
             <div className='buttons'>
                 <div className='change-amount'>
-                    <Minus className='minus'/>
-                    <div className='quantity'>1</div>
-                    <Plus className='plus'/>
+                    <Minus className='minus' onClick={contextData?.decreaseQuantity}/>
+                    <div className='quantity'>{contextData?.currentQuantity}</div>
+                    <Plus className='plus' onClick={contextData?.addQuantity}/>
                 </div>
-                <button className='add-to-cart'>Add {popupDetails.price} €</button>
+                <button className='add-to-cart' onClick={() => handleAddProduct(popupDetails)}>Add {popupDetails.price} €</button>
             </div>
         </div>
 

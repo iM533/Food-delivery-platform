@@ -4,13 +4,21 @@ import {Clock, Star, Truck} from 'lucide-react'
 import {supabase} from "../api/supabase.ts";
 import Product from "./Product.tsx";
 import ProductPopup from "./ProductPopup.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import type {ProductDetails} from './Product.tsx'
 
 export default function RestaurantDetails(){
 
     const [isPopupOpened, setIsPopupOpened] = useState(false);
     const [popupDetails, setPopupDetails] = useState<ProductDetails>()
+
+    useEffect(() => {
+        if(isPopupOpened){
+
+        }else{
+
+        }
+    }, [isPopupOpened])
 
     const {restaurantSlug} = useParams()
         if(!restaurantSlug)
@@ -42,7 +50,10 @@ export default function RestaurantDetails(){
             return productImage.publicUrl;
         }
     function setModal(){
-            setIsPopupOpened(!isPopupOpened);
+            setIsPopupOpened(prev => {
+                document.body.style.overflow = prev ? 'visible' : 'hidden';
+                return !prev;
+            });
     }
 
 

@@ -133,17 +133,19 @@ h1 {
 .restaurant-popup .minus {
   cursor: pointer;
   margin-left: 10px;
-
+  user-select: none;
 }
 
 .restaurant-popup .quantity {
   font-weight: bold;
   font-size: 20px;
+  user-select: none;
 }
 
 .restaurant-popup .plus {
   cursor: pointer;
   margin-right: 10px;
+  user-select: none;
 }
 
 .restaurant-popup .close-button{
@@ -227,6 +229,28 @@ h1 {
   font-family: "Inter Semi Bold";
   border: none;
 }
+
+.navbar .cart-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar .cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  background-color: green;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  height: 40px;
+  width: 235px;
+  border: none;
+  cursor: pointer;
+}
+
 
 .main-elements a.active .simple-btn{
   background-color: lightgray;
