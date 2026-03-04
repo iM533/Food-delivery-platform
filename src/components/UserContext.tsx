@@ -9,6 +9,7 @@ type UserContextProps = null | {
     currentQuantity: number,
     addQuantity: () => void,
     decreaseQuantity: () => void,
+    cleanQuantity: () => void,
 }
 
 export const UserContext = createContext<UserContextProps>(null);
@@ -38,8 +39,12 @@ export function ContextProvider({children}: ContextProviderProps){
         currentQuantity !== 0 && setCurrentQuantity(currentQuantity - 1)
     }
 
+    function cleanQuantity(){
+        setCurrentQuantity(1);
+    }
+
     return <UserContext value={{
         isLoggedIn, setAuth, cartItems, addItem: (item) => addItem(item),
-        currentQuantity, addQuantity, decreaseQuantity
+        currentQuantity, addQuantity, decreaseQuantity, cleanQuantity
     }}>{children}</UserContext>
 }

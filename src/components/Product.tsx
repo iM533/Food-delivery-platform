@@ -5,6 +5,7 @@ export type ProductDetails = {
     description: string,
     price: number,
     img: () => string,
+    quantity?: number,
 }
 
 type Props = ProductDetails & {
