@@ -1,6 +1,11 @@
 import {NavLink} from "react-router";
+import {UserContext} from './UserContext.tsx'
+import {useContext} from 'react'
 
 export default function Navbar(){
+
+    const data = useContext(UserContext)
+
     return(<>
         <nav className='navbar'>
             <div className='main-elements'>
@@ -9,7 +14,12 @@ export default function Navbar(){
                 <button className='simple-btn'>Shop</button>
             </div>
             <input className='input' type='search' placeholder='Food, Restaurants...'/>
-            <button className='login-btn'>Login or Register</button>
+            {data?.isLoggedIn
+                ?
+                <div className='cart'></div>
+                :
+                <button className='login-btn' onClick={data?.setAuth}>Login or Register</button>
+            }
         </nav>
     <hr style={{border: '1px solid gray'}}></hr>
         </>
