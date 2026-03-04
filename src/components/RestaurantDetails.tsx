@@ -3,15 +3,20 @@ import {useSuspenseQuery} from "@tanstack/react-query";
 import {Clock, Star, Truck} from 'lucide-react'
 import {supabase} from "../api/supabase.ts";
 import Product from "./Product.tsx";
+import ProductPopup from "./ProductPopup.tsx";
+import {useState} from "react";
+import type {ProductDetails} from './Product.tsx'
 
 export default function RestaurantDetails(){
+
+    const [isPopupOpened, setIsPopupOpened] = useState(false);
+    const [popupDetails, setPopupDetails] = useState<ProductDetails>()
 
     const {restaurantSlug} = useParams()
         if(!restaurantSlug)
             throw new Error('No restaurant slug')
         const id = restaurantSlug.split('-')[0]
         const slug = restaurantSlug.slice(id.length + 1)
-
 
 
      const {data} = useSuspenseQuery({
@@ -36,6 +41,10 @@ export default function RestaurantDetails(){
             const {data: productImage} = supabase.storage.from('delivery-platform-images').getPublicUrl('nothing.png');
             return productImage.publicUrl;
         }
+    function setModal(){
+            setIsPopupOpened(!isPopupOpened);
+    }
+
 
     if(!slug || !data)
         return <Navigate to='/'></Navigate>
@@ -62,7 +71,10 @@ export default function RestaurantDetails(){
                     </div>
             </div>
 
-            {products?.map(e => <Product key={e.id} title={e.name} description={e.description!} price={e.price} img={getImageUrl}/>)}
+            {products?.map(e =>
+                <Product setPopupDetails={setPopupDetails} setModal={setModal} key={e.id} title={e.name} description={e.description!} price={e.price} img={getImageUrl}
+            />)}
+            {isPopupOpened && <ProductPopup popupDetails={popupDetails!} setModal={setModal}></ProductPopup>}
         </div>
     </>)
 }

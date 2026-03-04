@@ -1,14 +1,27 @@
-type props = {
+import type {Dispatch, SetStateAction} from "react";
+
+export type ProductDetails = {
     title: string,
     description: string,
     price: number,
     img: () => string,
+
 }
 
-export default function Product({title, description, price, img}:props){
+type Props = ProductDetails & {
+    setModal: () => void,
+    setPopupDetails?: Dispatch<SetStateAction<ProductDetails | undefined>>
+}
+
+export default function Product({title, description, price, img, setModal, setPopupDetails}:Props){
+
+    function handleProductClick(){
+            setModal()
+            setPopupDetails!({title, description, price, img})
+    }
 
     return(<>
-        <div className='product'>
+        <div className='product' onClick={handleProductClick}>
             <div className='text'>
                 <div className='title'>{title}</div>
                 <div className='description'>{description}</div>

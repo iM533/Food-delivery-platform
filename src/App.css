@@ -47,10 +47,121 @@ h1 {
   justify-content: center;
 }
 
+.popup-backdrop {
+  inset: 0;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 50%);
+  display: flex;
+  justify-content: center;
+  z-index: 500;
+}
+
+.restaurant-popup {
+  box-sizing: border-box;
+  width: 475px;
+  height: 750px;
+  position: fixed;
+  top: 50%;
+  bottom: 50%;
+  transform: translate(0%, -50%);
+  background-color: white;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  z-index: 600;
+}
+
+.restaurant-popup img {
+  border-radius: 0;
+  height: 40%;
+  object-fit: cover;
+}
+
+.restaurant-popup .text-wrap {
+  padding: 20px;
+  flex: 0 1 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.restaurant-popup .title {
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.restaurant-popup .price {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.restaurant-popup .description {
+  color: gray;
+}
+.restaurant-popup .buttons {
+  flex: 1;
+  margin: 20px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.restaurant-popup .change-amount {
+  border-radius: 30px;
+  border: 1px solid gray;
+  height: 50px;
+  width: 150px;
+  margin-right: 15px;
+}
+.restaurant-popup .add-to-cart {
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+  font-size: 18px;
+  border: 0;
+  background-color: green;
+  border-radius: 30px;
+  height: 50px;
+  width: 100%;
+}
+
+.restaurant-popup .change-amount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.restaurant-popup .minus {
+  cursor: pointer;
+  margin-left: 10px;
+
+}
+
+.restaurant-popup .quantity {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.restaurant-popup .plus {
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.restaurant-popup .close-button{
+  cursor: pointer;
+  position: fixed;
+  left: 90%;
+  top: 2%;
+  height: 30px;
+  width: 30px;
+  border-radius: 360px;
+  background-color: white;
+}
+
 .product {
   display: flex;
   flex-direction: row;
   height: 150px;
+  cursor: pointer;
 }
 .product .text {
   display: flex;
