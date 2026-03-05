@@ -6,6 +6,7 @@ export type ProductDetails = {
     price: number,
     img: () => string,
     quantity?: number,
+    restaurant_id: number | null,
 }
 
 type Props = ProductDetails & {
@@ -13,11 +14,11 @@ type Props = ProductDetails & {
     setPopupDetails?: Dispatch<SetStateAction<ProductDetails | undefined>>
 }
 
-export default function Product({title, description, price, img, setModal, setPopupDetails}:Props){
+export default function Product({title, description, price, img, setModal, setPopupDetails, restaurant_id}:Props){
 
     function handleProductClick(){
             setModal()
-            setPopupDetails!({title, description, price, img})
+            setPopupDetails!({title, description, price, img, restaurant_id})
     }
 
     return(<>

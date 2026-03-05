@@ -13,7 +13,7 @@ export default function ProductPopup({setModal, popupDetails}: props){
     const contextData = useContext(UserContext)
     function handleAddProduct(product:ProductDetails){
         if(contextData?.isLoggedIn){
-            contextData?.addItem({...product, quantity: contextData.currentQuantity});
+            contextData?.addItem({...product, quantity: contextData.currentQuantity, restaurant_id: popupDetails.restaurant_id});
         }else{
             alert('You need to login first!')
         }
@@ -37,7 +37,7 @@ export default function ProductPopup({setModal, popupDetails}: props){
                     <div className='quantity'>{contextData?.currentQuantity}</div>
                     <Plus className='plus' onClick={contextData?.addQuantity}/>
                 </div>
-                <button className='add-to-cart' onClick={() => handleAddProduct(popupDetails)}>Add {popupDetails.price} €</button>
+                <button className='add-to-cart' onClick={() => handleAddProduct(popupDetails)}>Add {(popupDetails.price * contextData?.currentQuantity!).toFixed(2)} €</button>
             </div>
         </div>
 

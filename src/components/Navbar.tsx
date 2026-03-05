@@ -6,9 +6,9 @@ export default function Navbar(){
     const data = useContext(UserContext)
     const [totalAmount, setTotalAmount] = useState<number | undefined>(0)
     useEffect(() => {
-        setTotalAmount(data?.cartItems.reduce((acc, item) => acc += item.price * item.quantity!, 0))
+        setTotalAmount(data?.cartItems.reduce((acc, item) => acc + item.price * item.quantity!, 0))
     },[data?.cartItems])
-    return(<>
+    return(
         <nav className='navbar'>
             <div className='main-elements'>
                 <a className='logo'>Logo</a>
@@ -25,7 +25,6 @@ export default function Navbar(){
                 <button className='login-btn' onClick={data?.setAuth}>Login or Register</button>
             }
         </nav>
-    <hr style={{border: '1px solid gray'}}></hr>
-        </>
+
     )
 }

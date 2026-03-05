@@ -25,8 +25,16 @@ export function ContextProvider({children}: ContextProviderProps){
     const [currentQuantity, setCurrentQuantity] = useState(1)
 
     function addItem(item:ProductDetails) {
-        setCartItems([...cartItems, item])
+        if(cartItems.length > 0){
+            const filteredCart = cartItems.filter(cartItem => cartItem.restaurant_id == item.restaurant_id)
+            setCartItems([...filteredCart, item])
+        }else{
+            setCartItems([...cartItems, item])
+        }
+
+
     }
+
 
     function setAuth () {
         setIsLoggedIn(true)
@@ -36,7 +44,7 @@ export function ContextProvider({children}: ContextProviderProps){
         setCurrentQuantity(currentQuantity + 1)
     }
     function decreaseQuantity(){
-        currentQuantity !== 0 && setCurrentQuantity(currentQuantity - 1)
+        currentQuantity > 1 && setCurrentQuantity(currentQuantity - 1)
     }
 
     function cleanQuantity(){
@@ -45,6 +53,6 @@ export function ContextProvider({children}: ContextProviderProps){
 
     return <UserContext value={{
         isLoggedIn, setAuth, cartItems, addItem: (item) => addItem(item),
-        currentQuantity, addQuantity, decreaseQuantity, cleanQuantity
+        currentQuantity, addQuantity, decreaseQuantity, cleanQuantity,
     }}>{children}</UserContext>
 }
