@@ -1,4 +1,4 @@
-import {createContext, type ReactNode, useState} from 'react';
+import {createContext, type ReactNode, useEffect, useState} from 'react';
 import type {ProductDetails} from "./Product.tsx";
 
 type UserContextProps = null | {
@@ -9,6 +9,7 @@ type UserContextProps = null | {
     currentQuantity: number,
     changeQuantity: (method: 'increase' | 'decrease' | 'clear') => void,
     setNewCart: (item: ProductDetails[]) => void,
+    totalAmount?: number,
 }
 
 export const UserContext = createContext<UserContextProps>(null);
@@ -22,6 +23,11 @@ export function ContextProvider({children}: ContextProviderProps){
     const [isLoggedIn, setIsLoggedIn] = useState(true)
     const [cartItems, setCartItems] = useState<ProductDetails[]>([])
     const [currentQuantity, setCurrentQuantity] = useState(1)
+
+    const [totalAmount, setTotalAmount] = useState<number | undefined>(0)
+    useEffect(() => {
+        setTotalAmount(cartItems.reduce((acc, item) => acc + item.price * item.quantity!, 0))
+    },[cartItems])
 
     function addItem(item:ProductDetails) {
         if(cartItems.length > 0){
@@ -58,6 +64,6 @@ export function ContextProvider({children}: ContextProviderProps){
 
     return <UserContext value={{
         isLoggedIn, setAuth, cartItems, addItem: (item) => addItem(item),
-        currentQuantity, changeQuantity, setNewCart: (item) => setNewCart(item)
+        currentQuantity, changeQuantity, setNewCart: (item) => setNewCart(item), totalAmount
     }}>{children}</UserContext>
 }

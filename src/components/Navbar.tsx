@@ -1,13 +1,10 @@
 import {NavLink} from "react-router";
 import {UserContext} from './UserContext.tsx'
-import {useContext, useEffect, useState} from 'react'
+import {useContext} from 'react'
 
 export default function Navbar(){
     const data = useContext(UserContext)
-    const [totalAmount, setTotalAmount] = useState<number | undefined>(0)
-    useEffect(() => {
-        setTotalAmount(data?.cartItems.reduce((acc, item) => acc + item.price * item.quantity!, 0))
-    },[data?.cartItems])
+
     return(
         <nav className='navbar'>
             <div className='main-elements'>
@@ -19,7 +16,7 @@ export default function Navbar(){
             {data?.isLoggedIn
                 ?
                 <div className='cart-wrapper'>
-                    <NavLink className='login-btn-link' to='/cart'><div className='cart'>View basket {totalAmount} €</div></NavLink>
+                    <NavLink className='login-btn-link' to='/cart'><div className='cart'>View basket {data.totalAmount} €</div></NavLink>
                 </div>
                 :
                 <button className='login-btn' onClick={data?.setAuth}>Login or Register</button>

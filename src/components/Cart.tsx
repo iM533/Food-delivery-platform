@@ -36,10 +36,10 @@ export default function Cart(){
             <Link to={`/${contextData?.cartItems[0].restaurant_id}-${data![0].slug}`} className='back-to-restaurant'><Plus className='plus'/><strong>Add more</strong></Link>
             <hr className='spacer'/>
             <div className='subtotal-content'>
-                <p>Subtotal: </p>
-                <p>Delivery fee: </p>
+                <p>Subtotal: {contextData?.totalAmount?.toFixed(2)} €</p>
+                <p>Delivery fee: {(data![0].delivery_price/100).toFixed(2)} €</p>
                 <hr className='spacer'/>
-                <strong>Total :</strong>
+                <strong>Total : {(contextData?.totalAmount! + data![0].delivery_price / 100).toFixed(2)} €</strong>
             </div>
             <hr className='spacer'></hr>
             <button className='place-order'>Place order</button>
