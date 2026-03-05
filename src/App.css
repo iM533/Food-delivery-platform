@@ -1,15 +1,14 @@
 #root {
+  margin-top: 60px;
 }
 
-h1 {
-  padding-left: 70px;
+.content h1 {
+padding-left: 70px;
 }
-
 
 .content {
   max-width: 1280px;
   margin: 0 auto;
-  padding-top: 50px;
   box-sizing: border-box;
 }
 
@@ -256,6 +255,91 @@ h1 {
   cursor: pointer;
 }
 
+.navbar .cart:hover{
+  background-color: darkgreen;
+}
+.back-to-restaurant {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-decoration: none;
+  user-select: none;
+}
+
+.back-to-restaurant strong {
+  padding-left: 10px;
+  text-decoration: none;
+  color: green;
+  border: none;
+  font-size: 20px;
+}
+
+.back-to-restaurant .plus {
+  color: green;
+  text-decoration: none;
+}
+
+.cart-product-wrapper{
+  display: flex;
+  flex-direction: row;
+}
+
+.cart-product-wrapper .cart-image {
+  object-fit: scale-down;
+  box-sizing: border-box;
+  height: 100px;
+  width: 100px;
+}
+
+.cart-product-wrapper .text-wrapper{
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.cart-product-wrapper .cart-title{
+  font-size: 20px;
+}
+
+.cart-product-wrapper .cart-price{
+  color: green;
+}
+
+.cart-product-wrapper .quantity-wrapper{
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.cart-product-wrapper .quantity-wrapper .border {
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 20px;
+}
+
+.cart-product-wrapper .quantity{
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 20px;
+}
+
+.place-order {
+  border-radius: 30px;
+  background-color: green;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  margin-right: 30px;
+  height: 50px;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+}
+
 
 .main-elements a.active .simple-btn{
   background-color: lightgray;
@@ -303,6 +387,14 @@ h1 {
   width: 150px;
   border: none;
   cursor: pointer;
+}
+
+.navbar .login-btn:hover{
+  background-color: darkgreen;
+}
+
+.navbar .login-btn-link{
+  text-decoration: none;
 }
 
 .restaurant-row {

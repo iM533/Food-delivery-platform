@@ -2,12 +2,13 @@ import type {Dispatch, SetStateAction} from "react";
 
 export type ProductDetails = {
     title: string,
-    description: string,
+    description?: string,
     price: number,
     img: () => string,
     quantity?: number,
-    restaurant_id: number | null,
+    restaurant_id?: number,
 }
+
 
 type Props = ProductDetails & {
     setModal: () => void,

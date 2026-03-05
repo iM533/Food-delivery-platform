@@ -8,6 +8,7 @@ import {ErrorBoundary} from "react-error-boundary";
 import {Route, Routes, BrowserRouter} from 'react-router'
 import RestaurantDetails from "./components/RestaurantDetails.tsx";
 import {ContextProvider} from "./components/UserContext.tsx";
+import Cart from "./components/Cart.tsx";
 
 const client = new QueryClient({
     defaultOptions: {
@@ -33,6 +34,7 @@ createRoot(document.getElementById('root')!).render(
               <Routes>
                   <Route path='/' element={<App/>}></Route>
                   <Route path='/:restaurantSlug' element={<RestaurantDetails/>}></Route>
+                  <Route path='/cart' element={<Cart/>}/>
               </Routes>
           </QueryClientProvider>
           </Suspense>

@@ -19,7 +19,7 @@ export default function Navbar(){
             {data?.isLoggedIn
                 ?
                 <div className='cart-wrapper'>
-                    <div className='cart'>View basket {totalAmount} €</div>
+                    <NavLink className='login-btn-link' to='/cart'><div className='cart'>View basket {totalAmount} €</div></NavLink>
                 </div>
                 :
                 <button className='login-btn' onClick={data?.setAuth}>Login or Register</button>

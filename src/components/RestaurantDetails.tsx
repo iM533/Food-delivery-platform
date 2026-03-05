@@ -86,7 +86,7 @@ export default function RestaurantDetails(){
             </div>
 
             {products?.map(e =>
-                <Product setPopupDetails={setPopupDetails} setModal={setModal} key={e.id} title={e.name} description={e.description!} price={e.price} restaurant_id={e.restaurant_id} img={getImageUrl}
+                <Product setPopupDetails={setPopupDetails} setModal={setModal} key={e.id} title={e.name} description={e.description!} price={e.price} restaurant_id={e.restaurant_id!} img={getImageUrl}
             />)}
             {isPopupOpened && <ProductPopup popupDetails={popupDetails!} setModal={setModal} ></ProductPopup>}
         </div>

@@ -8,6 +8,7 @@ type UserContextProps = null | {
     addItem: (item: ProductDetails) => void,
     currentQuantity: number,
     changeQuantity: (method: 'increase' | 'decrease' | 'clear') => void,
+    setNewCart: (item: ProductDetails[]) => void,
 }
 
 export const UserContext = createContext<UserContextProps>(null);
@@ -18,7 +19,7 @@ type ContextProviderProps = {
 
 export function ContextProvider({children}: ContextProviderProps){
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(true)
     const [cartItems, setCartItems] = useState<ProductDetails[]>([])
     const [currentQuantity, setCurrentQuantity] = useState(1)
 
@@ -29,8 +30,10 @@ export function ContextProvider({children}: ContextProviderProps){
         }else{
             setCartItems([...cartItems, item])
         }
+    }
 
-
+    function setNewCart(item:ProductDetails[]) {
+            setCartItems(item)
     }
 
 
@@ -55,6 +58,6 @@ export function ContextProvider({children}: ContextProviderProps){
 
     return <UserContext value={{
         isLoggedIn, setAuth, cartItems, addItem: (item) => addItem(item),
-        currentQuantity, changeQuantity,
+        currentQuantity, changeQuantity, setNewCart: (item) => setNewCart(item)
     }}>{children}</UserContext>
 }

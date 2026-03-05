@@ -20,7 +20,6 @@ export default function ProductPopup({setModal, popupDetails}: props){
         }
 
     }
-
     return(
         <div className='popup-backdrop' onClick={() => setModal()}>
 
