@@ -14,10 +14,13 @@ export default function RestaurantDetails(){
     const [popupDetails, setPopupDetails] = useState<ProductDetails>()
     const userContext = useContext(UserContext);
 
+
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
+    useEffect(() => {
        !isPopupOpened && userContext?.changeQuantity('clear');
-
     }, [isPopupOpened])
 
     const {restaurantSlug} = useParams()
