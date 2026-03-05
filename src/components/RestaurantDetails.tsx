@@ -4,7 +4,7 @@ import {Clock, Star, Truck} from 'lucide-react'
 import {supabase} from "../api/supabase.ts";
 import Product from "./Product.tsx";
 import ProductPopup from "./ProductPopup.tsx";
-import {useState, useContext} from "react";
+import {useState, useContext, useEffect} from "react";
 import {UserContext} from './UserContext.tsx'
 import type {ProductDetails} from './Product.tsx'
 
@@ -13,6 +13,12 @@ export default function RestaurantDetails(){
     const [isPopupOpened, setIsPopupOpened] = useState(false);
     const [popupDetails, setPopupDetails] = useState<ProductDetails>()
     const userContext = useContext(UserContext);
+
+    useEffect(() => {
+
+       !isPopupOpened && userContext?.changeQuantity('clear');
+
+    }, [isPopupOpened])
 
     const {restaurantSlug} = useParams()
         if(!restaurantSlug)
@@ -45,11 +51,6 @@ export default function RestaurantDetails(){
         }
     function setModal(){
             setIsPopupOpened(prev => {
-                if (prev){
-                    userContext?.changeQuantity('clear');
-                }else{
-
-                }
                 document.body.style.overflow = prev ? 'visible' : 'hidden';
                 return !prev;
             });
