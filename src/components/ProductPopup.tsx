@@ -14,6 +14,7 @@ export default function ProductPopup({setModal, popupDetails}: props){
     function handleAddProduct(product:ProductDetails){
         if(contextData?.isLoggedIn){
             contextData?.addItem({...product, quantity: contextData.currentQuantity, restaurant_id: popupDetails.restaurant_id});
+            setModal()
         }else{
             alert('You need to login first!')
         }
