@@ -46,8 +46,9 @@ export default function RestaurantDetails(){
     function setModal(){
             setIsPopupOpened(prev => {
                 if (prev){
-                    userContext?.cleanQuantity();
+                    userContext?.changeQuantity('clear');
                 }else{
+
                 }
                 document.body.style.overflow = prev ? 'visible' : 'hidden';
                 return !prev;

@@ -34,9 +34,9 @@ export default function ProductPopup({setModal, popupDetails}: props){
             </div>
             <div className='buttons'>
                 <div className='change-amount'>
-                    <Minus className='minus' onClick={contextData?.decreaseQuantity}/>
+                    <Minus className='minus' onClick={() => contextData?.changeQuantity('decrease')}/>
                     <div className='quantity'>{contextData?.currentQuantity}</div>
-                    <Plus className='plus' onClick={contextData?.addQuantity}/>
+                    <Plus className='plus' onClick={() => contextData?.changeQuantity('increase')}/>
                 </div>
                 <button className='add-to-cart' onClick={() => handleAddProduct(popupDetails)}>Add {(popupDetails.price * contextData?.currentQuantity!).toFixed(2)} €</button>
             </div>

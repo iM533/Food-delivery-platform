@@ -7,9 +7,7 @@ type UserContextProps = null | {
     cartItems: ProductDetails[],
     addItem: (item: ProductDetails) => void,
     currentQuantity: number,
-    addQuantity: () => void,
-    decreaseQuantity: () => void,
-    cleanQuantity: () => void,
+    changeQuantity: (method: 'increase' | 'decrease' | 'clear') => void,
 }
 
 export const UserContext = createContext<UserContextProps>(null);
@@ -40,19 +38,23 @@ export function ContextProvider({children}: ContextProviderProps){
         setIsLoggedIn(true)
     }
 
-    function addQuantity(){
-        setCurrentQuantity(currentQuantity + 1)
-    }
-    function decreaseQuantity(){
-        currentQuantity > 1 && setCurrentQuantity(currentQuantity - 1)
+    function changeQuantity(method: 'increase' | 'decrease' | 'clear'){
+        switch (method){
+            case "increase":
+                setCurrentQuantity(currentQuantity + 1)
+                break;
+            case "decrease":
+                currentQuantity > 1 && setCurrentQuantity(currentQuantity - 1)
+                break;
+            case "clear":
+                setCurrentQuantity(1);
+                break;
+        }
     }
 
-    function cleanQuantity(){
-        setCurrentQuantity(1);
-    }
 
     return <UserContext value={{
         isLoggedIn, setAuth, cartItems, addItem: (item) => addItem(item),
-        currentQuantity, addQuantity, decreaseQuantity, cleanQuantity,
+        currentQuantity, changeQuantity,
     }}>{children}</UserContext>
 }
