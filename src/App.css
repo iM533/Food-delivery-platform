@@ -12,6 +12,8 @@ padding-left: 70px;
   box-sizing: border-box;
 }
 
+
+
 .restaurant-content{
   display: flex;
   flex-direction: column;
@@ -223,9 +225,10 @@ padding-left: 70px;
   background-color: lightgray;
 }
 .navbar .simple-btn{
-  margin-left: 30px;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0%);
+  margin-left: 10px;
+  margin-right: 10px;
   width: 75px;
   height: 40px;
   font-size: 16px;
@@ -244,6 +247,7 @@ padding-left: 70px;
   justify-content: center;
   align-items: center;
   margin-right: 30px;
+  margin-left: 10px;
   border-radius: 30px;
   background-color: green;
   color: white;
@@ -253,6 +257,18 @@ padding-left: 70px;
   width: 235px;
   border: none;
   cursor: pointer;
+}
+
+@media (max-width: 768px){
+  .navbar .cart {
+    width: 120px;
+    font-size: 15px;
+  }
+
+  .restaurant-popup {
+    width: 400px;
+    height: 620px;
+  }
 }
 
 .navbar .cart:hover{
@@ -375,6 +391,13 @@ padding-left: 70px;
 @keyframes l3 {to{transform: rotate(1turn)}}
 
 .navbar .main-elements {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 40px;
+  width: 40px;
 }
 
 .navbar .login-btn{
@@ -383,6 +406,7 @@ padding-left: 70px;
   color: white;
   font-weight: bold;
   margin-right: 30px;
+  margin-left: 10px;
   height: 40px;
   width: 150px;
   border: none;
