@@ -2,7 +2,7 @@ import {useSuspenseQuery} from "@tanstack/react-query";
 import {supabase} from "../api/supabase.ts";
 import type {Tables} from "../types/database.types.ts";
 import Restaurant from '../components/Restaurant.tsx'
-import getRestaurantImage from "../hooks/getRestaurantImage.ts";
+import useRestaurantImage from "../hooks/useRestaurantImage.ts";
 
 type Restaurant = Tables<'restaurants'>;
 type Data = {
@@ -28,7 +28,7 @@ export default function AppContent(){
             <div className="restaurant-row">
                 {restaurants.map(e =><Restaurant
                     key={e.id}
-                    img={() => getRestaurantImage(e.slug)}
+                    img={() => useRestaurantImage(e.slug)}
                     title={e.name!}
                     deliveryPrice={e.delivery_price!}
                     deliveryTime={e.delivery_time!}

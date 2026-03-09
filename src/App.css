@@ -471,3 +471,24 @@ padding-left: 70px;
   font-weight: normal;
   font-size: 15px;
 }
+.product-box {
+  width: 200px;
+  height: 200px;
+}
+.product-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  cursor: pointer;
+  flex-wrap: wrap;
+}
+
+.product-row img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+.product-box .price {
+  margin: 0;
+  font-weight: bold;
+}
