@@ -472,13 +472,14 @@ padding-left: 70px;
   font-size: 15px;
 }
 .product-box {
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
 }
 .product-row {
+  padding-left: 50px;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
   cursor: pointer;
   flex-wrap: wrap;
 }

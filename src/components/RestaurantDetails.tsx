@@ -25,10 +25,13 @@ export default function RestaurantDetails(){
     }, [isPopupOpened])
 
     const {restaurantSlug} = useParams()
-        if(!restaurantSlug)
+        if(restaurantSlug == null)
             throw new Error('No restaurant slug')
+
+
         const id = restaurantSlug.split('-')[0]
         const slug = restaurantSlug.slice(id.length + 1)
+
 
 
      const {data} = useSuspenseQuery({
