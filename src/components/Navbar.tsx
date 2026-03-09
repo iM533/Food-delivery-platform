@@ -5,9 +5,13 @@ import {useContext, type ChangeEvent} from 'react'
 export default function Navbar(){
     const data = useContext(UserContext)
     const navigate = useNavigate()
+    let debouncedTimeout:number;
 
     function handleSearch(event:ChangeEvent<HTMLInputElement>){
-        !event.target.value ? navigate('/') : navigate('/search/query=' + event.target.value)
+        clearTimeout(debouncedTimeout)
+        debouncedTimeout = setTimeout(() => {
+            !event.target.value ? navigate('/') : navigate('/search/query=' + event.target.value)
+        },500)
     }
 
     return(
