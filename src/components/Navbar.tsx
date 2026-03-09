@@ -1,4 +1,4 @@
-import {NavLink} from "react-router";
+import {Link, NavLink} from "react-router";
 import {UserContext} from './UserContext.tsx'
 import {useContext} from 'react'
 
@@ -8,9 +8,8 @@ export default function Navbar(){
     return(
         <nav className='navbar'>
             <div className='main-elements'>
-                <a className='logo'>Logo</a>
-                <NavLink to='/'><button className='simple-btn'>Main</button></NavLink>
-                <button className='simple-btn'>Shop</button>
+                <Link to='/'><img className='logo' src='../../public/images/navbar-logo.png' alt='logo'/></Link>
+                <NavLink to='/'><button className='simple-btn'>Home</button></NavLink>
             </div>
             <input className='input' type='search' placeholder='Food, Restaurants...'/>
             {data?.isLoggedIn

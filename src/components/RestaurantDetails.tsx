@@ -21,6 +21,7 @@ export default function RestaurantDetails(){
 
     useEffect(() => {
        !isPopupOpened && userContext?.changeQuantity('clear');
+        document.body.style.overflow = isPopupOpened ? 'hidden' : 'visible';
     }, [isPopupOpened])
 
     const {restaurantSlug} = useParams()
@@ -54,7 +55,6 @@ export default function RestaurantDetails(){
         }
     function setModal(){
             setIsPopupOpened(prev => {
-                document.body.style.overflow = prev ? 'visible' : 'hidden';
                 return !prev;
             });
     }
