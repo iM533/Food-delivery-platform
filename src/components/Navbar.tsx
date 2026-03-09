@@ -1,9 +1,14 @@
-import {Link, NavLink} from "react-router";
+import {Link, NavLink, useNavigate} from "react-router";
 import {UserContext} from './UserContext.tsx'
-import {useContext} from 'react'
+import {useContext, type ChangeEvent} from 'react'
 
 export default function Navbar(){
     const data = useContext(UserContext)
+    const navigate = useNavigate()
+
+    function handleSearch(event:ChangeEvent<HTMLInputElement>){
+        !event.target.value ? navigate('/') : navigate('/search/query=' + event.target.value)
+    }
 
     return(
         <nav className='navbar'>
@@ -11,7 +16,7 @@ export default function Navbar(){
                 <Link to='/'><img className='logo' src='../../public/images/navbar-logo.png' alt='logo'/></Link>
                 <NavLink to='/'><button className='simple-btn'>Home</button></NavLink>
             </div>
-            <input className='input' type='search' placeholder='Food, Restaurants...'/>
+            <input className='input' type='search' onChange={handleSearch} placeholder='Food, Restaurants...'/>
             {data?.isLoggedIn
                 ?
                 <div className='cart-wrapper'>

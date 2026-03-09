@@ -20,7 +20,7 @@ type ContextProviderProps = {
 
 export function ContextProvider({children}: ContextProviderProps){
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(true)
     const [cartItems, setCartItems] = useState<ProductDetails[]>([])
     const [currentQuantity, setCurrentQuantity] = useState(1)
 

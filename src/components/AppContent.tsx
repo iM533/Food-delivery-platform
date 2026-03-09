@@ -2,12 +2,12 @@ import {useSuspenseQuery} from "@tanstack/react-query";
 import {supabase} from "../api/supabase.ts";
 import type {Tables} from "../types/database.types.ts";
 import Restaurant from '../components/Restaurant.tsx'
+import getRestaurantImage from "../hooks/getRestaurantImage.ts";
 
 type Restaurant = Tables<'restaurants'>;
 type Data = {
     data: Restaurant[]
 }
-
 
 
 export default function AppContent(){
@@ -21,13 +21,6 @@ export default function AppContent(){
     })
 
 
-    function getRestaurantImages(slug: string): string{
-
-        const {data} = supabase.storage.from('delivery-platform-images').getPublicUrl('restaurants/' + slug + '.png');
-
-        return data.publicUrl;
-    }
-
     return(
         <div className="content">
             <h1>Show all restaurants</h1>
@@ -35,7 +28,7 @@ export default function AppContent(){
             <div className="restaurant-row">
                 {restaurants.map(e =><Restaurant
                     key={e.id}
-                    img={() => getRestaurantImages(e.slug)}
+                    img={() => getRestaurantImage(e.slug)}
                     title={e.name!}
                     deliveryPrice={e.delivery_price!}
                     deliveryTime={e.delivery_time!}
