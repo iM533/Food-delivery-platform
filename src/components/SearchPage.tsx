@@ -17,7 +17,6 @@ export default function SearchPage () {
         queryFn: async () => {
             if(query != undefined){
                 const {data} = await supabase.from('restaurants').select().ilike('name', `%${query}%`)
-                console.log(data)
                 return data
             }else{
                 throw new Error('No query')

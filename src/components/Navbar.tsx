@@ -1,18 +1,32 @@
-import {Link, NavLink, useNavigate} from "react-router";
+import {Link, NavLink, useNavigate, useLocation} from "react-router";
 import {UserContext} from './UserContext.tsx'
-import {useContext, type ChangeEvent} from 'react'
+import {useContext, type ChangeEvent, useEffect, useRef, useState} from 'react'
 
 export default function Navbar(){
     const data = useContext(UserContext)
     const navigate = useNavigate()
-    let debouncedTimeout:number;
+    const url = useLocation()
+
+    const debouncedTimeout = useRef<number | null>(null)
+    const [input, setInput] = useState('');
+
+    useEffect(() => {
+    if (!url.pathname.includes('search'))
+        setInput('')
+    }, [url.pathname])
 
     function handleSearch(event:ChangeEvent<HTMLInputElement>){
-        clearTimeout(debouncedTimeout)
-        debouncedTimeout = setTimeout(() => {
-            !event.target.value ? navigate('/') : navigate('/search/query=' + event.target.value)
+        setInput(event.target.value)
+        if (debouncedTimeout.current){
+            clearTimeout(debouncedTimeout.current)
+        }
+
+        debouncedTimeout.current = setTimeout(() => {
+        !event.target.value ? navigate('/') : navigate('/search/query=' + event.target.value)
         },500)
     }
+
+
 
     return(
         <nav className='navbar'>
@@ -20,7 +34,7 @@ export default function Navbar(){
                 <Link to='/'><img className='logo' src='../../public/images/navbar-logo.png' alt='logo'/></Link>
                 <NavLink to='/'><button className='simple-btn'>Home</button></NavLink>
             </div>
-            <input className='input' type='search' onChange={handleSearch} placeholder='Food, Restaurants...'/>
+            <input value={input} className='input' type='search' onChange={handleSearch} placeholder='Food, Restaurants...' />
             {data?.isLoggedIn
                 ?
                 <div className='cart-wrapper'>
