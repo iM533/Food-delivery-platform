@@ -1,6 +1,6 @@
 import {Plus, Minus} from 'lucide-react';
 import type {ProductDetails} from './Product.tsx'
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {UserContext} from "./UserContext.tsx";
 import Notification from "./Notification.tsx";
 
@@ -13,26 +13,56 @@ type props = {
 export default function ProductPopup({setModal, popupDetails}: props){
 
     const [showNotification, setShowNotification] = useState(false)
+    const [notificationMessage, setNotificationMessage] = useState<string>('')
+
+    useEffect(() => {
+        if(showNotification){
+            const audio = new Audio('sounds/notification.wav')
+            audio.volume = 0.5;
+            audio.play().catch()
+            const timeout = setTimeout(() => {
+                setShowNotification(false)
+            }, 2000)
+            return () => clearTimeout(timeout)
+        }
+    }, [showNotification]);
+
     const contextData = useContext(UserContext)
+    let activateTimeout = false;
     function handleAddProduct(product:ProductDetails){
         if(contextData?.isLoggedIn){
-            contextData?.addItem({...product, quantity: contextData.currentQuantity, restaurant_id: popupDetails.restaurant_id});
-            setModal()
+            if(contextData.cartItems.length > 0){
+                if(contextData.cartItems[0].restaurant_id !== popupDetails.restaurant_id){
+                        setNotificationMessage('Your old cart was cleared!')
+                        setShowNotification(true)
+                    activateTimeout = true;
+                }
+            }
+
+                contextData?.addItem({...product, quantity: contextData.currentQuantity, restaurant_id: popupDetails.restaurant_id});
+            if (activateTimeout){
+                setTimeout(() => {
+                    setModal()
+                    activateTimeout = false
+                }, 750)
+            }else{
+                setModal()
+            }
+
+
+
+
         }else{
             if(!showNotification){
+                setNotificationMessage('You need to login first!')
                 setShowNotification(true)
-                const audio = new Audio('sounds/notification.wav')
-                audio.volume = 0.5;
-                audio.play().catch()
-                setTimeout(() => {
-                    setShowNotification(false)
-                }, 2000)
             }
         }
     }
     return(<>
+
         <div className='popup-backdrop' onClick={() => setModal()}>
-            {showNotification && <Notification message='You need to login first!'></Notification>}
+            {showNotification && <Notification message={notificationMessage}></Notification>}
         <div className={contextData?.isDarkTheme ? 'restaurant-popup dark' : 'restaurant-popup'} onClick={e => e.stopPropagation()}>
             <button className='close-button' onClick={() => setModal()}>X</button>
             <img src={popupDetails.img()} alt={popupDetails.title}></img>
