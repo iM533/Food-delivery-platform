@@ -1,26 +1,38 @@
-import {useSuspenseQuery} from "@tanstack/react-query";
+import {useSuspenseInfiniteQuery} from "@tanstack/react-query";
 import {supabase} from "../api/supabase.ts";
-import type {Tables} from "../types/database.types.ts";
 import Restaurant from '../components/Restaurant.tsx'
 import useRestaurantImage from "../hooks/useRestaurantImage.ts";
 import {useEffect} from "react";
 
-type Restaurant = Tables<'restaurants'>;
-
-
-
 export default function AppContent(){
-    const {data: restaurants} = useSuspenseQuery({
-        queryKey: ['restaurants'],
-        queryFn: async () => {
-            const {data} = await supabase.from('restaurants').select().order('id', {ascending: true}).range(0, 11)
-            return data || [];
-        },
-    })
+    const PAGE_SIZE = 12;
 
+    const {data, fetchNextPage, hasNextPage} = useSuspenseInfiniteQuery({
+        queryKey: ["restaurants"],
+        initialPageParam: 1,
+        queryFn: async ({ pageParam }) => {
+            const from = (pageParam - 1) * PAGE_SIZE;
+            const to = from + PAGE_SIZE - 1;
+
+            const { data, error } = await supabase
+                .from("restaurants")
+                .select()
+                .order("id", { ascending: true })
+                .range(from, to);
+
+            if (error) throw error;
+            return data ?? [];
+        },
+        getNextPageParam: (lastPage, allPages) => {
+            if (lastPage.length < PAGE_SIZE) return undefined;
+            return allPages.length + 1;
+        },
+    });
+
+    const restaurants = data.pages.flat()
     useEffect(() => {
         const observer = new IntersectionObserver(scrollCallback, {})
-        const intersectedElement = document.querySelector("#scrollArea")
+        const intersectedElement = document.querySelector(".scroll-area")
         if (intersectedElement)
         observer.observe(intersectedElement)
         return () => observer.disconnect()
@@ -29,12 +41,7 @@ export default function AppContent(){
 
     async function scrollCallback(entries:IntersectionObserverEntry[])  {
         if (entries[0].isIntersecting){
-            const {data} = await supabase.from('restaurants').select().order('id', {ascending: true}).range(0, (restaurants.length - 1) + 12)
-            if(data){
-                if(data?.length < (restaurants.length - 1) + 12){
-
-                }
-            }
+            await fetchNextPage()
         }
     }
 
@@ -53,7 +60,7 @@ export default function AppContent(){
                     slug={e.slug}
                 />)}
             </div>
-            <div id='scrollArea' style={{width: '100%', height: '30px', backgroundColor: 'red'}}></div>
+            {hasNextPage && <div className='scroll-area' style={{width: '100%', height: '1px'}}></div>}
         </div>
     )
 }
