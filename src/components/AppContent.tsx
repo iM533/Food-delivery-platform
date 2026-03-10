@@ -3,22 +3,40 @@ import {supabase} from "../api/supabase.ts";
 import type {Tables} from "../types/database.types.ts";
 import Restaurant from '../components/Restaurant.tsx'
 import useRestaurantImage from "../hooks/useRestaurantImage.ts";
+import {useEffect} from "react";
 
 type Restaurant = Tables<'restaurants'>;
-type Data = {
-    data: Restaurant[]
-}
+
 
 
 export default function AppContent(){
-
-    const {data: restaurants}:Data = useSuspenseQuery({
+    const {data: restaurants} = useSuspenseQuery({
         queryKey: ['restaurants'],
         queryFn: async () => {
-            const {data} = await supabase.from('restaurants').select()
-            return data
-        }
+            const {data} = await supabase.from('restaurants').select().order('id', {ascending: true}).range(0, 11)
+            return data || [];
+        },
     })
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(scrollCallback, {})
+        const intersectedElement = document.querySelector("#scrollArea")
+        if (intersectedElement)
+        observer.observe(intersectedElement)
+        return () => observer.disconnect()
+    }, []);
+
+
+    async function scrollCallback(entries:IntersectionObserverEntry[])  {
+        if (entries[0].isIntersecting){
+            const {data} = await supabase.from('restaurants').select().order('id', {ascending: true}).range(0, (restaurants.length - 1) + 12)
+            if(data){
+                if(data?.length < (restaurants.length - 1) + 12){
+
+                }
+            }
+        }
+    }
 
 
     return(
@@ -35,6 +53,7 @@ export default function AppContent(){
                     slug={e.slug}
                 />)}
             </div>
+            <div id='scrollArea' style={{width: '100%', height: '30px', backgroundColor: 'red'}}></div>
         </div>
     )
 }
