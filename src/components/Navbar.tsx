@@ -1,6 +1,7 @@
 import {Link, NavLink, useNavigate, useLocation} from "react-router";
 import {UserContext} from './UserContext.tsx'
 import {useContext, type ChangeEvent, useEffect, useRef, useState} from 'react'
+import {MoonStar, Sun} from "lucide-react";
 
 export default function Navbar(){
     const data = useContext(UserContext)
@@ -15,6 +16,10 @@ export default function Navbar(){
         setInput('')
     }, [url.pathname])
 
+    useEffect(() => {
+        document.body.classList.toggle('dark')
+    }, [data?.isDarkTheme]);
+
     function handleSearch(event:ChangeEvent<HTMLInputElement>){
         setInput(event.target.value)
         if (debouncedTimeout.current){
@@ -26,23 +31,33 @@ export default function Navbar(){
         },500)
     }
 
+    function handleThemeSwitch(){
+        data?.changeTheme()
+    }
+
 
 
     return(
-        <nav className='navbar'>
+        <nav className={data?.isDarkTheme ? 'navbar dark' : 'navbar'}>
             <div className='main-elements'>
                 <Link to='/'><img className='logo' src='/images/navbar-logo.png' alt='logo'/></Link>
                 <NavLink to='/'><button className='simple-btn'>Home</button></NavLink>
             </div>
             <input value={input} className='input' type='search' onChange={handleSearch} placeholder='Food, Restaurants...' />
-            {data?.isLoggedIn
-                ?
-                <div className='cart-wrapper'>
-                    <NavLink className='login-btn-link' to='/cart'><div className='cart'>View basket {data.totalAmount} €</div></NavLink>
-                </div>
-                :
-                <button className='login-btn' onClick={data?.setAuth}>Login or Register</button>
-            }
+            <div className='last-elements-wrapper'>
+                {data?.isDarkTheme
+                    ?
+                    <Sun className='theme-switch' size={30} onClick={handleThemeSwitch}></Sun>
+                    :
+                    <MoonStar className='theme-switch' size={30} onClick={handleThemeSwitch}></MoonStar>}
+                {data?.isLoggedIn
+                    ?
+                    <div className='cart-wrapper'>
+                        <NavLink className='login-btn-link' to='/cart'><div className='cart'>View basket {data.totalAmount} €</div></NavLink>
+                    </div>
+                    :
+                    <button className='login-btn' onClick={data?.setAuth}>Login or Register</button>}
+            </div>
         </nav>
 
     )

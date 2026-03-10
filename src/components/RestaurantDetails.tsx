@@ -74,20 +74,21 @@ export default function RestaurantDetails(){
                 <strong>{(data.rating!/100).toFixed(2)}</strong>
                 <p>rating</p>
                     </div>
-                <hr/>
+                <hr className='vertical-spacer'/>
                     <div className='element'>
                 <Truck size={15} style={{paddingRight: '5px'}}/>
                 <strong>{(data.delivery_price!/100).toFixed(2)} €</strong>
                 <p>delivery</p>
                     </div>
-                <hr/>
+                <hr className='vertical-spacer'/>
                     <div className='element'>
                 <Clock size={15} style={{paddingRight: '5px'}}/>
                 <strong>{data.delivery_time!}-{data.delivery_time! + 5}</strong>
                 <p>min</p>
                     </div>
-            </div>
 
+            </div>
+            <hr className='spacer'/>
             {products?.map(e =>
                 <Product setPopupDetails={setPopupDetails} setModal={setModal} key={e.id} title={e.name} description={e.description!} price={e.price} restaurant_id={e.restaurant_id!} img={getImageUrl}
             />)}

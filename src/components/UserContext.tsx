@@ -10,6 +10,8 @@ type UserContextProps = null | {
     changeQuantity: (method: 'increase' | 'decrease' | 'clear') => void,
     setNewCart: (item: ProductDetails[]) => void,
     totalAmount?: number,
+    isDarkTheme: boolean,
+    changeTheme: () => void
 }
 
 export const UserContext = createContext<UserContextProps>(null);
@@ -23,6 +25,7 @@ export function ContextProvider({children}: ContextProviderProps){
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [cartItems, setCartItems] = useState<ProductDetails[]>([])
     const [currentQuantity, setCurrentQuantity] = useState(1)
+    const [isDarkTheme, setIsDarkTheme] = useState(false)
 
     const [totalAmount, setTotalAmount] = useState<number | undefined>(0)
     useEffect(() => {
@@ -40,6 +43,10 @@ export function ContextProvider({children}: ContextProviderProps){
 
     function setNewCart(item:ProductDetails[]) {
             setCartItems(item)
+    }
+
+    function changeTheme(){
+        setIsDarkTheme(!isDarkTheme)
     }
 
 
@@ -64,6 +71,7 @@ export function ContextProvider({children}: ContextProviderProps){
 
     return <UserContext value={{
         isLoggedIn, setAuth, cartItems, addItem: (item) => addItem(item),
-        currentQuantity, changeQuantity, setNewCart: (item) => setNewCart(item), totalAmount
+        currentQuantity, changeQuantity, setNewCart: (item) => setNewCart(item), totalAmount,
+        isDarkTheme, changeTheme
     }}>{children}</UserContext>
 }

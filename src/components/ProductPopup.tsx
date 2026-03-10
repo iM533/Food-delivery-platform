@@ -33,9 +33,9 @@ export default function ProductPopup({setModal, popupDetails}: props){
     return(<>
         <div className='popup-backdrop' onClick={() => setModal()}>
             {showNotification && <Notification message='You need to login first!'></Notification>}
-        <div className='restaurant-popup' onClick={e => e.stopPropagation()}>
+        <div className={contextData?.isDarkTheme ? 'restaurant-popup dark' : 'restaurant-popup'} onClick={e => e.stopPropagation()}>
             <button className='close-button' onClick={() => setModal()}>X</button>
-            <img src={popupDetails.img()} alt='test'></img>
+            <img src={popupDetails.img()} alt={popupDetails.title}></img>
             <div className='text-wrap'>
                 <div className='title'>{popupDetails.title}</div>
                 <div className='price'>{popupDetails.price.toFixed(2)} €</div>

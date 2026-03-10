@@ -1,4 +1,5 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
+import {UserContext} from './UserContext'
 
 export default function Notification({message}: { message: string }){
 
@@ -10,9 +11,11 @@ export default function Notification({message}: { message: string }){
       },2000)
     },[])
 
+    const userData = useContext(UserContext);
+
     return (
         <div className='notification-wrap'>
-            <div className='notification' hidden={hidden} onClick={() => setHidden(true)}>{message}</div>
+            <div className={userData?.isDarkTheme ? 'notification dark' : 'notification'} hidden={hidden} onClick={() => setHidden(true)}>{message}</div>
         </div>
     )
 }
