@@ -31,7 +31,7 @@ export default function Navbar(){
     return(
         <nav className='navbar'>
             <div className='main-elements'>
-                <Link to='/'><img className='logo' src='../../public/images/navbar-logo.png' alt='logo'/></Link>
+                <Link to='/'><img className='logo' src='/images/navbar-logo.png' alt='logo'/></Link>
                 <NavLink to='/'><button className='simple-btn'>Home</button></NavLink>
             </div>
             <input value={input} className='input' type='search' onChange={handleSearch} placeholder='Food, Restaurants...' />

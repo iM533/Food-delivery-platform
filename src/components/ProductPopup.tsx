@@ -21,6 +21,8 @@ export default function ProductPopup({setModal, popupDetails}: props){
         }else{
             if(!showNotification){
                 setShowNotification(true)
+                const audio = new Audio('sounds/notification.wav')
+                audio.play().catch()
                 setTimeout(() => {
                     setShowNotification(false)
                 }, 2000)

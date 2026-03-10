@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react'
+import {useContext, useEffect, useState} from 'react'
 import {UserContext} from "./UserContext.tsx";
 import CartProduct from "./CartProduct.tsx";
 import {supabase} from "../api/supabase.ts";
@@ -6,12 +6,26 @@ import {useSuspenseQuery} from "@tanstack/react-query";
 import {Link, Navigate} from "react-router";
 import {Plus} from 'lucide-react';
 import Notification from "./Notification.tsx";
+import confetti from 'canvas-confetti';
 
 
 export default function Cart(){
     const contextData = useContext(UserContext)
     const [showNotification, setShowNotification] = useState(false);
 
+    useEffect(() => {
+        if(showNotification){
+            const audio = new Audio('sounds/success.wav')
+            audio.volume = 0.2;
+            audio.play().catch()
+            confetti({
+                spread: 50,
+                particleCount: 50,
+                origin: { x: 0.5, y: 1 },
+                disableForReducedMotion: true,
+            });
+        }
+    }, [showNotification]);
 
     if (contextData?.cartItems.length === 0 || !contextData!.cartItems[0].restaurant_id){
         return(<Navigate to='/'/>)
@@ -28,6 +42,7 @@ export default function Cart(){
 
     function handleNotification(){
         if(!showNotification){
+
             setShowNotification(true)
             setTimeout(() => {
                 setShowNotification(false)

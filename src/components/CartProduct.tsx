@@ -47,6 +47,7 @@ export default function CartProduct({title, quantity, img, price, index}:Product
                     <Plus className='plus' onClick={handleIncrease}/>
                 </div>
             </div>
+
         </div>
             <hr className='spacer'/>
         </>
