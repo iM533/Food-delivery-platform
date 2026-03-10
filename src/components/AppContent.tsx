@@ -24,7 +24,6 @@ export default function AppContent(){
     return(
         <div className="content">
             <h1>Show all restaurants</h1>
-
             <div className="restaurant-row">
                 {restaurants.map(e =><Restaurant
                     key={e.id}

@@ -1,7 +1,9 @@
 import {Plus, Minus} from 'lucide-react';
 import type {ProductDetails} from './Product.tsx'
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {UserContext} from "./UserContext.tsx";
+import Notification from "./Notification.tsx";
+
 
 type props = {
     setModal: () => void,
@@ -10,19 +12,24 @@ type props = {
 
 export default function ProductPopup({setModal, popupDetails}: props){
 
+    const [showNotification, setShowNotification] = useState(false)
     const contextData = useContext(UserContext)
     function handleAddProduct(product:ProductDetails){
         if(contextData?.isLoggedIn){
             contextData?.addItem({...product, quantity: contextData.currentQuantity, restaurant_id: popupDetails.restaurant_id});
             setModal()
         }else{
-            alert('You need to login first!')
+            if(!showNotification){
+                setShowNotification(true)
+                setTimeout(() => {
+                    setShowNotification(false)
+                }, 2000)
+            }
         }
-
     }
-    return(
+    return(<>
         <div className='popup-backdrop' onClick={() => setModal()}>
-
+            {showNotification && <Notification message='You need to login first!'></Notification>}
         <div className='restaurant-popup' onClick={e => e.stopPropagation()}>
             <button className='close-button' onClick={() => setModal()}>X</button>
             <img src={popupDetails.img()} alt='test'></img>
@@ -40,7 +47,7 @@ export default function ProductPopup({setModal, popupDetails}: props){
                 <button className='add-to-cart' onClick={() => handleAddProduct(popupDetails)}>Add {(popupDetails.price * contextData?.currentQuantity!).toFixed(2)} €</button>
             </div>
         </div>
-
         </div>
+        </>
     )
 }

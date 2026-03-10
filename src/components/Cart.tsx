@@ -1,15 +1,16 @@
-import {useContext} from 'react'
+import {useContext, useState} from 'react'
 import {UserContext} from "./UserContext.tsx";
 import CartProduct from "./CartProduct.tsx";
 import {supabase} from "../api/supabase.ts";
 import {useSuspenseQuery} from "@tanstack/react-query";
 import {Link, Navigate} from "react-router";
 import {Plus} from 'lucide-react';
+import Notification from "./Notification.tsx";
 
 
 export default function Cart(){
     const contextData = useContext(UserContext)
-
+    const [showNotification, setShowNotification] = useState(false);
 
 
     if (contextData?.cartItems.length === 0 || !contextData!.cartItems[0].restaurant_id){
@@ -25,9 +26,17 @@ export default function Cart(){
         }
     })
 
-
+    function handleNotification(){
+        if(!showNotification){
+            setShowNotification(true)
+            setTimeout(() => {
+                setShowNotification(false)
+            }, 2000)
+        }
+    }
     return(
         <div className='restaurant-content'>
+            {showNotification && <Notification message='Your demo order placed!'/>}
             <h1>{data![0].name}</h1>
             {contextData?.cartItems.length === 0 && <h1>Your cart is Empty!</h1>}
             {contextData?.cartItems.map((product, i) => <CartProduct
@@ -42,7 +51,7 @@ export default function Cart(){
                 <strong>Total : {(contextData?.totalAmount! + data![0].delivery_price / 100).toFixed(2)} €</strong>
             </div>
             <hr className='spacer'></hr>
-            <button className='place-order'>Place order</button>
+            <button className='place-order' onClick={handleNotification}>Place order</button>
         </div>
     )
 }
