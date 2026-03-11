@@ -46,10 +46,10 @@ export default function AppContent(){
     }
 
 
-    return(
+    return(<>
         <div className="content">
             <h1>Show all restaurants</h1>
-            <div className="restaurant-row">
+            <div className="restaurant-row" >
                 {restaurants.map(e =><Restaurant
                     key={e.id}
                     img={() => useRestaurantImage(e.slug)}
@@ -62,5 +62,6 @@ export default function AppContent(){
             </div>
             {hasNextPage && <div className='scroll-area' style={{width: '100%', height: '1px'}}></div>}
         </div>
+        </>
     )
 }
