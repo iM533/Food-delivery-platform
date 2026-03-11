@@ -38,6 +38,7 @@ body.dark {
 
 .theme-switch{
   padding-left: 15px;
+  cursor: pointer;
 }
 
 

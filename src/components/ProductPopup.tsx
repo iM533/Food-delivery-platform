@@ -33,7 +33,7 @@ export default function ProductPopup({setModal, popupDetails}: props){
         if(contextData?.isLoggedIn){
             if(contextData.cartItems.length > 0){
                 if(contextData.cartItems[0].restaurant_id !== popupDetails.restaurant_id){
-                        setNotificationMessage('Your old cart was cleared!')
+                        setNotificationMessage('Your previous cart was cleared!')
                         setShowNotification(true)
                     activateTimeout = true;
                 }
@@ -62,8 +62,8 @@ export default function ProductPopup({setModal, popupDetails}: props){
     return(<>
 
         <div className='popup-backdrop' onClick={() => setModal()}>
-            {showNotification && <Notification message={notificationMessage}></Notification>}
         <div className={contextData?.isDarkTheme ? 'restaurant-popup dark' : 'restaurant-popup'} onClick={e => e.stopPropagation()}>
+            {showNotification && <Notification message={notificationMessage}></Notification>}
             <button className='close-button' onClick={() => setModal()}>X</button>
             <img src={popupDetails.img()} alt={popupDetails.title}></img>
             <div className='text-wrap'>
