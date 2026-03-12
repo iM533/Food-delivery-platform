@@ -47,9 +47,9 @@ export default function Navbar(){
             <div className='last-elements-wrapper'>
                 {data?.isDarkTheme
                     ?
-                    <Sun className='theme-switch' size={30} onClick={handleThemeSwitch}></Sun>
+                    <Sun className='theme-switch' data-testid="sun" size={30} onClick={handleThemeSwitch}></Sun>
                     :
-                    <MoonStar className='theme-switch' size={30} onClick={handleThemeSwitch}></MoonStar>}
+                    <MoonStar className='theme-switch' data-testid="moon" size={30} onClick={handleThemeSwitch}></MoonStar>}
                 {data?.isLoggedIn
                     ?
                     <div className='cart-wrapper'>
