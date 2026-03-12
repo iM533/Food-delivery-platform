@@ -3,7 +3,7 @@ import {UserContext} from "./UserContext.tsx";
 import CartProduct from "./CartProduct.tsx";
 import {supabase} from "../api/supabase.ts";
 import {useSuspenseQuery} from "@tanstack/react-query";
-import {Link, Navigate} from "react-router";
+import {Link} from "react-router";
 import {Plus} from 'lucide-react';
 import Notification from "./Notification.tsx";
 import confetti from 'canvas-confetti';
@@ -27,15 +27,12 @@ export default function Cart(){
         }
     }, [showNotification]);
 
-    if (contextData?.cartItems.length === 0 || !contextData!.cartItems[0].restaurant_id){
-        return(<Navigate to='/'/>)
-    }
-    const restaurantId = contextData!.cartItems[0].restaurant_id;
 
+    const restaurantId = !contextData?.cartItems[0] ? 0 : contextData?.cartItems[0].restaurant_id;
     const {data} = useSuspenseQuery({
-        queryKey: ['cart-restaurant', [contextData?.cartItems[0].restaurant_id]],
+        queryKey: ['cart-restaurant', [restaurantId]],
         queryFn: async () => {
-            const {data} = await supabase.from('restaurants').select().eq('id', restaurantId)
+            const {data} = await supabase.from('restaurants').select().eq('id', restaurantId!)
             return data
         }
     })
@@ -48,6 +45,14 @@ export default function Cart(){
                 setShowNotification(false)
             }, 2000)
         }
+    }
+    if (contextData?.cartItems.length === 0 || !contextData!.cartItems[0].restaurant_id){
+        return(
+            <div className='restaurant-content'>
+                <h1>Your cart looks empty</h1>
+                <h2>Please add something</h2>
+            </div>
+        )
     }
     return(
         <div className='restaurant-content'>

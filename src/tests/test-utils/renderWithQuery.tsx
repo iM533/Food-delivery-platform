@@ -4,7 +4,7 @@ import {type ReactNode, Suspense} from "react";
 import {render} from "vitest-browser-react";
 
 
-export default async function RenderWithQuery(ui: ReactNode){
+export default async function renderWithQuery(ui: ReactNode){
     const queryClient = new QueryClient({
         defaultOptions: {
             queries: {

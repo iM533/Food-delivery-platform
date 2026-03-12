@@ -1,7 +1,7 @@
 import {createContext, type ReactNode, useEffect, useState} from 'react';
 import type {ProductDetails} from "./Product.tsx";
 
-type UserContextProps = null | {
+export type UserContextProps = null | {
     isLoggedIn: boolean,
     setAuth: () => void,
     cartItems: ProductDetails[],
