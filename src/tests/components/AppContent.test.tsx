@@ -11,7 +11,7 @@ describe('App Content page', () => {
         await expect.element(heading).toBeInTheDocument()
     });
 
-    test("Restaurant cards rendered", async () => {
+    test("renders restaurant card", async () => {
         const content = await renderWithQuery(<AppContent/>)
 
         const restaurantCards = content.getByTestId('restaurant-card');
