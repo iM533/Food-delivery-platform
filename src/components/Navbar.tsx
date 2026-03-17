@@ -16,10 +16,6 @@ export default function Navbar(){
         setInput('')
     }, [url.pathname])
 
-    useEffect(() => {
-        document.body.classList.toggle('dark')
-    }, [data?.isDarkTheme]);
-
     function handleSearch(event:ChangeEvent<HTMLInputElement>){
         setInput(event.target.value)
         if (debouncedTimeout.current){
@@ -53,7 +49,7 @@ export default function Navbar(){
                 {data?.isLoggedIn
                     ?
                     <div className='cart-wrapper'>
-                        <NavLink className='login-btn-link' to='/cart'><div className='cart'>View basket {data.totalAmount} €</div></NavLink>
+                        <NavLink className='login-btn-link' to='/cart'><button className='cart'>View basket {data.totalAmount} €</button></NavLink>
                     </div>
                     :
                     <button className='login-btn' onClick={data?.setAuth}>Login or Register</button>}

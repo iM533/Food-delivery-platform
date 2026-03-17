@@ -47,6 +47,7 @@ export function ContextProvider({children}: ContextProviderProps){
 
     function changeTheme(){
         setIsDarkTheme(!isDarkTheme)
+        document.body.classList.toggle('dark')
     }
 
 
